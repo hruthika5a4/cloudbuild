@@ -8,7 +8,7 @@ steps:
       [
         'build',
         '-t',
-        'us-central1-docker.pkg.dev/$PROJECT_ID/web-repo/web-app:$COMMIT_SHA',
+        'us-central1-docker.pkg.dev/$PROJECT_ID/artifact-repo/static-web:$COMMIT_SHA',
         '.'
       ]
 
@@ -17,15 +17,15 @@ steps:
     args:
       [
         'push',
-        'us-central1-docker.pkg.dev/$PROJECT_ID/web-repo/web-app:$COMMIT_SHA'
+        'us-central1-docker.pkg.dev/$PROJECT_ID/artifact-repo/static-web:$COMMIT_SHA'
       ]
 
-  # Step 3: Deploy via deploy.sh
+  # Step 3: Deploy via script
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
       - './deploy.sh'
-      - '$COMMIT_SHA'
+      - "$COMMIT_SHA"
 
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/web-repo/web-app:$COMMIT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/artifact-repo/static-web:$COMMIT_SHA'
