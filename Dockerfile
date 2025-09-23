@@ -1,18 +1,11 @@
-# Use Node.js base image
-FROM node:18
+# Use nginx for static HTML
+FROM nginx:alpine
 
-# Set working directory
-WORKDIR /app
+# Copy your HTML file
+COPY index.html /usr/share/nginx/html/index.html
 
-# Copy package files and install dependencies
-COPY package*.json ./
-RUN npm install
+# Expose port 80
+EXPOSE 80
 
-# Copy app source code
-COPY . .
-
-# Expose port 8080
-EXPOSE 8080
-
-# Start the app
-CMD ["npm", "start"]
+# Run nginx in foreground so container stays alive
+CMD ["nginx", "-g", "daemon off;"]
