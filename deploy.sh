@@ -7,7 +7,9 @@ if [[ -z "$COMMIT_SHA" ]]; then
   exit 1
 fi
 
-TEMPLATE="static-template-$COMMIT_SHA-$(date +%s)"
+# Generate unique instance template name (shortened)
+TEMPLATE="static-tmpl-${COMMIT_SHA:0:10}-$(date +%s)"
+
 echo "Creating instance template: $TEMPLATE"
 
 gcloud compute instance-templates create "$TEMPLATE" \
